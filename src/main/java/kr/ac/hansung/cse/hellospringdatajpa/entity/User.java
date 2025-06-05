@@ -20,10 +20,10 @@ public class User {
     private String password;
     private UserRole role;
 
-    public static User from(CreateUserDto dto) {
+    public static User from(CreateUserDto dto, BCryptPasswordEncoder encoder) {
         return User.builder()
                 .email(dto.getEmail())
-                .password(dto.getPassword())
+                .password(encoder.encode(dto.getPassword()))
                 .role(UserRole.ROLE_USER)
                 .build();
     }
