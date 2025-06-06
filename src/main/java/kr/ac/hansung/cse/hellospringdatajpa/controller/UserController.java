@@ -15,25 +15,33 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
-    // 회원가입 폼 렌더링
+    // 회원가입 페이지 렌더링
     @GetMapping("/register")
-    public String showRegisterForm(Model model) {
-        model.addAttribute("user", new UserInfoDto()); // ← 여기 반드시 있어야 함
+    public String registerPage(Model model) {
+        model.addAttribute("user", new UserInfoDto());
         return "register";
     }
 
-    // ===================================
+    // 로그인 페이지 렌더링
+    @GetMapping("/login")
+    public String loginPage(@RequestParam(value = "error", required = false) String error,
+                            @RequestParam(value = "logout", required = false) String logout,
+                            Model model) {
+        if (error != null) {
+            model.addAttribute("errorMessage", "이메일 또는 비밀번호가 올바르지 않습니다.");
+        }
+        if (logout != null) {
+            model.addAttribute("logoutMessage", "로그아웃 되었습니다.");
+        }
+        return "login";
+    }
 
-    // 회원가입 기능 구현
+    // ===========================================
+
+    // 회원가입
     @PostMapping("/register")
     public String register(@ModelAttribute UserInfoDto userInfoDto, Model model) {
         userService.add(userInfoDto);
-        return "redirect:/users/login";
-    }
-
-    // 로그인 기능 구현
-    @GetMapping("/login")
-    public String loginPage() {
-        return "login";
+        return "redirect:/users/register?success";
     }
 }

@@ -27,8 +27,8 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/users/login")                      // 로그인 페이지 경로 (GET)
                         .loginProcessingUrl("/login")                   // 로그인 처리 경로 (POST)
-                        .defaultSuccessUrl("/products", true)           // 로그인 성공 시 이동
-                        .failureUrl("/users/login?error=true")          // 실패 시 이동
+                        .defaultSuccessUrl("/users/login?success", true) // 성공
+                        .failureUrl("/users/login?error=true")          // 실패
                         .permitAll()
                 )
                 .logout(logout -> logout
