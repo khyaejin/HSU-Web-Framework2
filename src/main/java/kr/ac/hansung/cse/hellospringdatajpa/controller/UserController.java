@@ -1,15 +1,12 @@
 package kr.ac.hansung.cse.hellospringdatajpa.controller;
 
-import kr.ac.hansung.cse.hellospringdatajpa.dto.CreateUserDto;
-import kr.ac.hansung.cse.hellospringdatajpa.entity.Product;
-import kr.ac.hansung.cse.hellospringdatajpa.service.ProductService;
+import kr.ac.hansung.cse.hellospringdatajpa.dto.UserInfoDto;
+import kr.ac.hansung.cse.hellospringdatajpa.entity.UserRole;
 import kr.ac.hansung.cse.hellospringdatajpa.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -18,11 +15,16 @@ public class UserController {
     private UserService userService;
 
     // 회원가입
-    public String register(CreateUserDto createUserDto, Model model) {
-        userService.add(createUserDto);
-        return "home";
+    @PostMapping("/register")
+    public String register(@ModelAttribute UserInfoDto userInfoDto, Model model) {
+        userService.add(userInfoDto);
+        return "redirect:/login"; // 로그인 페이지로 이동
     }
 
-
+    // 로그인 (SecurityConfig에서 처리)
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
+    }
 
 }
