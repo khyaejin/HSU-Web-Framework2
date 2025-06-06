@@ -21,7 +21,9 @@ public class UserService implements UserDetailsService {
 
     // 회원 가입
     public void add(UserInfoDto dto) {
+//        System.out.println("회원가입 시도:" + dto.getEmail() + ", " + dto.getPassword());
         User user = User.from(dto, passwordEncoder);
+//        System.out.println("암호화된 비밀번호:" + user.getPassword());
         userRepository.save(user);
     }
 
