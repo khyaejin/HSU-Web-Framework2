@@ -20,15 +20,15 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/users/register", "/users/login", "/css/**", "/js/**").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/products/**").hasAnyRole("ADMIN", "USER")
-                        .anyRequest().authenticated()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")              // 관리자 권한 필요
+                        .requestMatchers("/products/**").hasAnyRole("ADMIN", "USER")// 사용자, 관리자 권한 가능
+                        .anyRequest().authenticated()                               // 그 외 모든 요청 인증 필요
                 )
                 .formLogin(form -> form
-                        .loginPage("/users/login")                      // 로그인 페이지 경로 (GET)
-                        .loginProcessingUrl("/login")                   // 로그인 처리 경로 (POST)
-                        .defaultSuccessUrl("/users/login?success", true) // 성공
-                        .failureUrl("/users/login?error=true")          // 실패
+                        .loginPage("/users/login")                                  // 로그인 페이지
+                        .loginProcessingUrl("/login")                               // 로그인 처리 URL
+                        .defaultSuccessUrl("/users/login?success", true)           // 로그인 성공 시 이동 (모달 처리용)
+                        .failureUrl("/users/login?error=true")                      // 로그인 실패 시 이동
                         .permitAll()
                 )
                 .logout(logout -> logout

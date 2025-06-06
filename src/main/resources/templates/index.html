@@ -15,6 +15,11 @@
     <a class="btn btn-primary" th:href="@{/products/new}">Create New Product</a>
   </div>
 
+  <!-- 관리자만 보이는 "관리자 페이지" 버튼 -->
+  <div class="mb-3" th:if="${isAdmin}">
+    <a class="btn btn-warning" th:href="@{/admin/users}">관리자 페이지</a>
+  </div>
+
   <!-- 로그아웃 버튼은 모두 보이게 -->
   <form th:action="@{/logout}" method="post">
     <button type="submit" class="btn btn-outline-secondary">Logout</button>
