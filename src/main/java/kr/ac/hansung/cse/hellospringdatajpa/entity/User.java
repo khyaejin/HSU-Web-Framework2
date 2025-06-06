@@ -1,8 +1,9 @@
 package kr.ac.hansung.cse.hellospringdatajpa.entity;
 
 import jakarta.persistence.*;
-import kr.ac.hansung.cse.hellospringdatajpa.repo.CreateUserDto;
+import kr.ac.hansung.cse.hellospringdatajpa.dto.CreateUserDto;
 import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Getter
 @Setter
@@ -27,5 +28,4 @@ public class User {
                 .role(UserRole.ROLE_USER)
                 .build();
     }
-
 }

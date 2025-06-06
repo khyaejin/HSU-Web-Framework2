@@ -1,11 +1,10 @@
 package kr.ac.hansung.cse.hellospringdatajpa.service;
 
 import kr.ac.hansung.cse.hellospringdatajpa.entity.User;
-import kr.ac.hansung.cse.hellospringdatajpa.entity.UserRole;
-import kr.ac.hansung.cse.hellospringdatajpa.repo.CreateUserDto;
+import kr.ac.hansung.cse.hellospringdatajpa.dto.CreateUserDto;
 import kr.ac.hansung.cse.hellospringdatajpa.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

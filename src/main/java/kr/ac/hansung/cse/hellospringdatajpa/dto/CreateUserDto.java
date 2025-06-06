@@ -1,4 +1,4 @@
-package kr.ac.hansung.cse.hellospringdatajpa.repo;
+package kr.ac.hansung.cse.hellospringdatajpa.dto;
 
 import lombok.Getter;
 
