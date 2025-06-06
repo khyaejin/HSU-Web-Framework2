@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import kr.ac.hansung.cse.hellospringdatajpa.dto.UserInfoDto;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -41,12 +42,12 @@ public class User implements UserDetails {
     // ========== UserDetails  ==========
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(() -> role.name()); // ROLE_USER, ROLE_ADMIN
+        return Collections.singleton(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override
     public String getUsername() {
-        return email; // 이메일을 ID로 사용
+        return email;
     }
 
     @Override

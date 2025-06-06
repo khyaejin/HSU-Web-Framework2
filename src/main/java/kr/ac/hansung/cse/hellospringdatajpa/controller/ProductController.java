@@ -3,6 +3,9 @@ package kr.ac.hansung.cse.hellospringdatajpa.controller;
 import kr.ac.hansung.cse.hellospringdatajpa.entity.Product;
 import kr.ac.hansung.cse.hellospringdatajpa.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +21,15 @@ public class ProductController {
 
     @GetMapping({"", "/"}) // products 또는 /products/ 둘 다 매핑
     public String viewHomePage(Model model) {
-
         List<Product> listProducts = service.listAll();
         model.addAttribute("listProducts", listProducts);
+
+        // 현재 사용자 권한 확인
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
+//        System.out.println("이름: " + auth.getName());
+//        System.out.println("권한: "+ auth.getAuthorities());
+        model.addAttribute("isAdmin", isAdmin);
 
         return "index";
     }

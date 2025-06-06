@@ -9,11 +9,18 @@
 <body>
 <div class="container">
   <h1 class="mt-5">Product List</h1>
-  <a class="btn btn-primary mb-3" th:href="@{/products/new}">Create New Product</a>
+
+  <!-- 관리자만 보이는 "Create" 버튼 -->
+  <div class="mb-3" th:if="${isAdmin}">
+    <a class="btn btn-primary" th:href="@{/products/new}">Create New Product</a>
+  </div>
+
+  <!-- 로그아웃 버튼은 모두 보이게 -->
   <form th:action="@{/logout}" method="post">
     <button type="submit" class="btn btn-outline-secondary">Logout</button>
   </form>
-  <table class="table table-bordered">
+
+  <table class="table table-bordered mt-3">
     <thead>
     <tr>
       <th>Product ID</th>
@@ -32,8 +39,17 @@
       <td th:text="${product.madeIn}">Made in</td>
       <td th:text="${product.price}">Price</td>
       <td>
-        <a class="btn btn-primary btn-sm" th:href="@{'/products/edit/' + ${product.id}}">Edit</a>
-        <a class="btn btn-danger btn-sm" th:href="@{'/products/delete/' + ${product.id}}">Delete</a>
+        <!-- 관리자일 경우: 수정/삭제 버튼 보이게 -->
+        <div th:if="${isAdmin}">
+          <a class="btn btn-primary btn-sm" th:href="@{'/products/edit/' + ${product.id}}">Edit</a>
+          <a class="btn btn-danger btn-sm" th:href="@{'/products/delete/' + ${product.id}}">Delete</a>
+        </div>
+
+        <!-- 일반 사용자일 경우: 버튼 비활성화 -->
+        <div th:unless="${isAdmin}">
+          <button class="btn btn-secondary btn-sm" disabled>Edit</button>
+          <button class="btn btn-secondary btn-sm" disabled>Delete</button>
+        </div>
       </td>
     </tr>
     </tbody>
