@@ -60,7 +60,12 @@ public class ProductController {
     @PostMapping("/save")
     public String saveProduct(@Valid @ModelAttribute("product") Product product, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "new_product";
+            // id 값이 있으면 수정, 없으면 신규로 간ㄴ주
+            if (product.getId() != null) {
+                return "edit_product";
+            } else {
+                return "new_product";
+            }
         }
         service.save(product);
         return "redirect:/products";
