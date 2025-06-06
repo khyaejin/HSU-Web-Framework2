@@ -1,10 +1,12 @@
 package kr.ac.hansung.cse.hellospringdatajpa.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import jakarta.validation.constraints.NotBlank;
 
 @Getter
 @Setter
@@ -17,9 +19,16 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "상품 이름은 필수입니다.")
     private String name;
+
+    @NotBlank(message = "브랜드는 필수입니다.")
     private String brand;
+
+    @NotBlank(message = "제조국가는 필수입니다.")
     private String madeIn;
+
+    @DecimalMin(value = "0.0", inclusive = false, message = "가격은 0보다 커야 합니다.")
     private double price;
 
     public Product(String name, String brand, String madeIn, double price) {

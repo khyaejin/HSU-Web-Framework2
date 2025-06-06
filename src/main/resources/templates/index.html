@@ -50,7 +50,7 @@
           <a class="btn btn-danger btn-sm" th:href="@{'/products/delete/' + ${product.id}}">Delete</a>
         </div>
 
-        <!-- 일반 사용자일 경우: 버튼 비활성화 -->
+        <!-- 일반 사용자일 경우: 버튼 안 눌리게 -->
         <div th:unless="${isAdmin}">
           <button class="btn btn-secondary btn-sm" disabled>Edit</button>
           <button class="btn btn-secondary btn-sm" disabled>Delete</button>

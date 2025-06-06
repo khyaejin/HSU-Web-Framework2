@@ -27,7 +27,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/users/login")                                  // 로그인 페이지
                         .loginProcessingUrl("/login")                               // 로그인 처리 URL
-                        .defaultSuccessUrl("/users/login?success", true)           // 로그인 성공 시 이동 (모달 처리용)
+                        .defaultSuccessUrl("/users/login?success", true)           // 로그인 성공 시 이동 (모달 처리를 위해)
                         .failureUrl("/users/login?error=true")                      // 로그인 실패 시 이동
                         .permitAll()
                 )
