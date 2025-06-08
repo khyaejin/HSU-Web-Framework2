@@ -1,10 +1,12 @@
 package kr.ac.hansung.cse.hellospringdatajpa.domain.user.controller;
 
+import jakarta.validation.Valid;
 import kr.ac.hansung.cse.hellospringdatajpa.domain.user.dto.UserInfoDto;
 import kr.ac.hansung.cse.hellospringdatajpa.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -36,7 +38,10 @@ public class UserController {
 
     // 회원가입
     @PostMapping("/register")
-    public String register(@ModelAttribute UserInfoDto userInfoDto, Model model) {
+    public String register(@Valid @ModelAttribute("user") UserInfoDto userInfoDto, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "register";
+        }
         userService.addUser(userInfoDto);
         return "redirect:/users/login";
     }
