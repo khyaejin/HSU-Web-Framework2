@@ -40,6 +40,6 @@ public class UserController {
     @PostMapping("/register")
     public String register(@ModelAttribute UserInfoDto userInfoDto, Model model) {
         userService.add(userInfoDto);
-        return "redirect:/users/register?success";
+        return "redirect:/users/login";
     }
 }
