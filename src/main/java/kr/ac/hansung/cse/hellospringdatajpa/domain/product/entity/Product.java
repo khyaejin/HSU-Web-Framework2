@@ -1,4 +1,4 @@
-package kr.ac.hansung.cse.hellospringdatajpa.entity;
+package kr.ac.hansung.cse.hellospringdatajpa.domain.product.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;

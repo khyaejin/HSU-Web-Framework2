@@ -1,7 +1,7 @@
-package kr.ac.hansung.cse.hellospringdatajpa.controller;
+package kr.ac.hansung.cse.hellospringdatajpa.domain.user.controller;
 
-import kr.ac.hansung.cse.hellospringdatajpa.dto.UserInfoDto;
-import kr.ac.hansung.cse.hellospringdatajpa.service.UserService;
+import kr.ac.hansung.cse.hellospringdatajpa.domain.user.dto.UserInfoDto;
+import kr.ac.hansung.cse.hellospringdatajpa.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,12 +34,10 @@ public class UserController {
         return "login";
     }
 
-    // ===========================================
-
     // 회원가입
     @PostMapping("/register")
     public String register(@ModelAttribute UserInfoDto userInfoDto, Model model) {
-        userService.add(userInfoDto);
+        userService.addUser(userInfoDto);
         return "redirect:/users/login";
     }
 }

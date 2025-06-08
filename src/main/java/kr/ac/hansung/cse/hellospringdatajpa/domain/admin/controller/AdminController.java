@@ -1,6 +1,7 @@
-package kr.ac.hansung.cse.hellospringdatajpa.controller;
+package kr.ac.hansung.cse.hellospringdatajpa.domain.admin.controller;
 
-import kr.ac.hansung.cse.hellospringdatajpa.service.UserService;
+import kr.ac.hansung.cse.hellospringdatajpa.domain.admin.service.AdminService;
+import kr.ac.hansung.cse.hellospringdatajpa.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class AdminController {
     private final UserService userService;
+    private final AdminService adminService;
 
-    // 관리자 페이지로 이동
+    // 관리자 페이지 렌더링
     @GetMapping("/users")
     public String adminPage(Model model) {
         model.addAttribute("userList", userService.findAllUsers());
@@ -25,7 +27,7 @@ public class AdminController {
     // 관리자 권한으로 승격
     @PostMapping("/users/promote/{id}")
     public String promoteUserToAdmin(@PathVariable Long id) {
-        userService.promoteToAdmin(id);
+        adminService.promoteToAdmin(id);
         return "redirect:/admin/users";
     }
 

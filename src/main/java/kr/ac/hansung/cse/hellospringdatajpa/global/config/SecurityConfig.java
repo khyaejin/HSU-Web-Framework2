@@ -1,4 +1,4 @@
-package kr.ac.hansung.cse.hellospringdatajpa.config;
+package kr.ac.hansung.cse.hellospringdatajpa.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

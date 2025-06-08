@@ -1,8 +1,8 @@
-package kr.ac.hansung.cse.hellospringdatajpa.controller;
+package kr.ac.hansung.cse.hellospringdatajpa.domain.product.controller;
 
 import jakarta.validation.Valid;
-import kr.ac.hansung.cse.hellospringdatajpa.entity.Product;
-import kr.ac.hansung.cse.hellospringdatajpa.service.ProductService;
+import kr.ac.hansung.cse.hellospringdatajpa.domain.product.entity.Product;
+import kr.ac.hansung.cse.hellospringdatajpa.domain.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

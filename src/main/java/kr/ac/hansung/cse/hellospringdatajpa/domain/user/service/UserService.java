@@ -1,9 +1,8 @@
-package kr.ac.hansung.cse.hellospringdatajpa.service;
+package kr.ac.hansung.cse.hellospringdatajpa.domain.user.service;
 
-import kr.ac.hansung.cse.hellospringdatajpa.entity.User;
-import kr.ac.hansung.cse.hellospringdatajpa.dto.UserInfoDto;
-import kr.ac.hansung.cse.hellospringdatajpa.entity.UserRole;
-import kr.ac.hansung.cse.hellospringdatajpa.repo.UserRepository;
+import kr.ac.hansung.cse.hellospringdatajpa.domain.user.entity.User;
+import kr.ac.hansung.cse.hellospringdatajpa.domain.user.dto.UserInfoDto;
+import kr.ac.hansung.cse.hellospringdatajpa.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,10 +22,8 @@ public class UserService implements UserDetailsService {
     private final BCryptPasswordEncoder passwordEncoder;
 
     // 회원 가입
-    public void add(UserInfoDto dto) {
-//        System.out.println("회원가입 시도:" + dto.getEmail() + ", " + dto.getPassword());
+    public void addUser(UserInfoDto dto) {
         User user = User.from(dto, passwordEncoder);
-//        System.out.println("암호화된 비밀번호:" + user.getPassword());
         userRepository.save(user);
     }
 
@@ -40,13 +37,5 @@ public class UserService implements UserDetailsService {
     // 전체 회원 조회
     public List<User> findAllUsers() {
         return userRepository.findAll();
-    }
-
-    // 관리자 권한으로 승격
-    public void promoteToAdmin(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("사용자 없음"));
-        user.setRole(UserRole.ROLE_ADMIN);
-        userRepository.save(user);
     }
 }

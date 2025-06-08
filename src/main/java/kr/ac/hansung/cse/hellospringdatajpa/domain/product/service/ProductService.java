@@ -1,8 +1,9 @@
-package kr.ac.hansung.cse.hellospringdatajpa.service;
+package kr.ac.hansung.cse.hellospringdatajpa.domain.product.service;
 
-import kr.ac.hansung.cse.hellospringdatajpa.entity.Product;
-import kr.ac.hansung.cse.hellospringdatajpa.repo.ProductRepository;
+import kr.ac.hansung.cse.hellospringdatajpa.domain.product.entity.Product;
+import kr.ac.hansung.cse.hellospringdatajpa.domain.product.repository.ProductRepository;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,11 +13,10 @@ import java.util.NoSuchElementException;
 
 @Service
 @Transactional
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class ProductService {
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     public Product get(long id) {
         return productRepository.findById(id)

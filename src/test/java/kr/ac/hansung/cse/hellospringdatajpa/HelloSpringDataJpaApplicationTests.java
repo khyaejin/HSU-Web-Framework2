@@ -1,8 +1,8 @@
 package kr.ac.hansung.cse.hellospringdatajpa;
 
 import jakarta.transaction.Transactional;
-import kr.ac.hansung.cse.hellospringdatajpa.entity.Product;
-import kr.ac.hansung.cse.hellospringdatajpa.repo.ProductRepository;
+import kr.ac.hansung.cse.hellospringdatajpa.domain.product.entity.Product;
+import kr.ac.hansung.cse.hellospringdatajpa.domain.product.repository.ProductRepository;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;

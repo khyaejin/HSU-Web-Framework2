@@ -1,4 +1,4 @@
-package kr.ac.hansung.cse.hellospringdatajpa.dto;
+package kr.ac.hansung.cse.hellospringdatajpa.domain.user.dto;
 
 import lombok.Getter;
 import lombok.Setter;
