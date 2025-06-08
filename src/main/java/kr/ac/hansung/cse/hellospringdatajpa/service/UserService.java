@@ -2,6 +2,7 @@ package kr.ac.hansung.cse.hellospringdatajpa.service;
 
 import kr.ac.hansung.cse.hellospringdatajpa.entity.User;
 import kr.ac.hansung.cse.hellospringdatajpa.dto.UserInfoDto;
+import kr.ac.hansung.cse.hellospringdatajpa.entity.UserRole;
 import kr.ac.hansung.cse.hellospringdatajpa.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,5 +40,13 @@ public class UserService implements UserDetailsService {
     // 전체 회원 조회
     public List<User> findAllUsers() {
         return userRepository.findAll();
+    }
+
+    // 관리자 권한으로 승격
+    public void promoteToAdmin(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("사용자 없음"));
+        user.setRole(UserRole.ROLE_ADMIN);
+        userRepository.save(user);
     }
 }

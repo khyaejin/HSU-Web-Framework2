@@ -90,7 +90,18 @@
         <tr th:each="user : ${userList}">
             <td th:text="${user.id}">1</td>
             <td th:text="${user.email}">user@example.com</td>
-            <td th:text="${user.role}">ROLE_USER</td>
+            <td>
+                <div class="d-flex justify-content-center align-items-center gap-2">
+                    <span th:text="${user.role}">ROLE_USER</span>
+                    <form th:if="${user.role.name() == 'ROLE_USER'}"
+                          th:action="@{'/admin/users/promote/' + ${user.id}}"
+                          method="post">
+                        <button type="submit" class="btn btn-sm btn-warning text-dark">
+                            <i class="fa-solid fa-arrow-up"></i> Admin으로 승격
+                        </button>
+                    </form>
+                </div>
+            </td>
         </tr>
         </tbody>
     </table>
