@@ -33,7 +33,7 @@ public class ProductController {
 //        System.out.println("권한: "+ auth.getAuthorities());
         model.addAttribute("isAdmin", isAdmin);
 
-        return "index";
+        return "product";
     }
 
     @GetMapping("/new")

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Product Manager</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            background: linear-gradient(to right, #e0eafc, #cfdef3); /* 연하늘 배경 */
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 3rem 1rem;
+        }
+
+        .container {
+            max-width: 1024px;
+            width: 100%;
+            background-color: #ffffff; /* 카드 내부는 흰색 */
+            border-radius: 1.5rem;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            padding: 3rem 2.5rem;
+            border: 1px solid #ececec;
+        }
+
+        h1 {
+            font-weight: 700;
+            font-size: 2.2rem;
+            margin-bottom: 2.5rem;
+            color: #2e2e33;
+            text-align: center;
+        }
+
+        .btn {
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn i {
+            margin-right: 6px;
+        }
+
+        .btn-sm {
+            padding: 0.4rem 0.75rem;
+            font-size: 0.875rem;
+            margin-right: 0.25rem;
+        }
+
+        table.table {
+            background-color: #fff;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            margin-top: 1rem;
+            border: none;
+        }
+
+        thead th {
+            background-color: #f6f7fb;
+            color: #495057;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.96rem;
+            border: none;
+        }
+
+        tbody td {
+            vertical-align: middle;
+            text-align: center;
+            font-size: 0.94rem;
+            padding: 0.9rem 0.75rem;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .d-flex.justify-content-between {
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        form.mb-3 {
+            display: flex;
+            justify-content: flex-end;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1 class="text-center">Product List</h1>
+
+    <!-- 관리자만 보이는 "Create" 버튼 -->
+    <div class="d-flex justify-content-between align-items-center mb-3" th:if="${isAdmin}">
+        <a class="btn btn-primary" th:href="@{/products/new}">
+            <i class="fa-solid fa-plus"></i> Create New Product
+        </a>
+
+        <!-- 관리자만 보이는 "관리자 페이지" 버튼 -->
+        <a class="btn btn-warning" th:href="@{/admin/users}">
+            <i class="fa-solid fa-user-shield"></i> 관리자 페이지
+        </a>
+    </div>
+
+    <!-- 로그아웃 버튼은 모두 보이게 -->
+    <form th:action="@{/logout}" method="post" class="mb-3">
+        <button type="submit" class="btn btn-outline-secondary">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </button>
+    </form>
+
+    <table class="table table-hover align-middle">
+        <thead>
+        <tr>
+            <th>Product ID</th>
+            <th>Name</th>
+            <th>Brand</th>
+            <th>Made In</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${listProducts}">
+            <td th:text="${product.id}">Product ID</td>
+            <td th:text="${product.name}">Name</td>
+            <td th:text="${product.brand}">Brand</td>
+            <td th:text="${product.madeIn}">Made in</td>
+            <td th:text="${product.price}">Price</td>
+            <td>
+                <!-- 관리자일 경우: 수정/삭제 버튼 보이게 -->
+                <div th:if="${isAdmin}">
+                    <a class="btn btn-primary btn-sm" th:href="@{'/products/edit/' + ${product.id}}">
+                        <i class="fa-solid fa-pen-to-square"></i> Edit
+                    </a>
+                    <a class="btn btn-danger btn-sm" th:href="@{'/products/delete/' + ${product.id}}">
+                        <i class="fa-solid fa-trash"></i> Delete
+                    </a>
+                </div>
+
+                <!-- 일반 사용자일 경우: 버튼 안 눌리게 -->
+                <div th:unless="${isAdmin}">
+                    <button class="btn btn-secondary btn-sm" disabled>
+                        <i class="fa-solid fa-ban"></i> Edit
+                    </button>
+                    <button class="btn btn-secondary btn-sm" disabled>
+                        <i class="fa-solid fa-ban"></i> Delete
+                    </button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ✅ Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
